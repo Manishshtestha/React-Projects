@@ -10,5 +10,5 @@
     padding: 8px 18px;
 }
 .outline_btn:hover{
-    @apply bg-blue-300
+    @apply bg-cyan-400
 }
