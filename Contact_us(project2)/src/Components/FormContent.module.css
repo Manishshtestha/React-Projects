@@ -1,0 +1,12 @@
+.form_control {
+    @apply flex flex-col w-full relative mt-3 mb-5;
+}
+.form_control input,.form_control textarea {
+    @apply h-10 pl-4 pr-4 border border-black rounded-md;
+}
+.form_control textarea{
+    @apply h-20;
+}
+.form_control label {
+    @apply text-sm absolute -top-3 left-[10px] bg-white rounded-md;
+}

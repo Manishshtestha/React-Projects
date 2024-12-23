@@ -1,0 +1,14 @@
+.primary_btn{
+    @apply flex gap-2 justify-center items-center bg-black text-white rounded-lg w-56 cursor-pointer transition-all;
+    padding: 8px 18px;
+}
+.primary_btn:hover{
+    @apply bg-cyan-400 text-black
+}
+.outline_btn{
+    @apply flex gap-2 justify-center items-center border border-black text-black rounded-lg w-full cursor-pointer transition-all;
+    padding: 8px 18px;
+}
+.outline_btn:hover{
+    @apply bg-blue-300
+}
