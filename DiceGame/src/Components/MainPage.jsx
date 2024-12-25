@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
 import NumberSelector from "./NumberSelector";
+import DiceRoller from "./DiceRoller";
 function MainPage() {
 	const [score, setScore] = useState(0);
 	const resetScore = () => {
@@ -16,18 +17,18 @@ function MainPage() {
 			<div className="flex justify-between w-full">
 				<div className="flex flex-col">
 					<h1 className="text-9xl text-center">{score}</h1>
-					<h1>Total Score</h1>
+					<h1 className="font-bold">Total Score</h1>
 				</div>
-				<div className="flex flex-col items-center">
-					<NumberSelector/>
-                    <h1>Select a number</h1>
+				<div className="flex flex-col w-[69%]">
+					<NumberSelector />
 				</div>
 			</div>
 			<div className="flex flex-col items-center gap-4">
+				<DiceRoller/>
 				<p>Click on the dice to roll it.</p>
 				<Button title="Reset Score" OnClick={resetScore} />
 				<Button title="Game Rules" onClick={showRules} />
-				<div id="rules" className="bg-cyan-400 p-4 rounded-md">
+				<div id="rules" className="bg-cyan-400 p-4 rounded-md hidden">
 					<h2 className="font-bold">How to play the Game?</h2>
 					<p>Select any number</p>
 					<p>Click on the dice</p>
