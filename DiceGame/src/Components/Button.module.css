@@ -1,0 +1,9 @@
+.btn{
+    @apply pt-5 pb-5 pl-10 pr-10 rounded-lg font-mono bg-black text-white transition-all w-[200px] shadow-2xl 
+}
+.btn:hover{
+    @apply bg-gray-600
+}
+.btn:active{
+    @apply transform scale-95
+}
