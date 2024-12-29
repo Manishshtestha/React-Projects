@@ -1,5 +1,5 @@
 import LandingPage from "./Components/LandingPage"
-import MainPage from "./Components/MainPage"
+import GamePlay from "./Components/GamePlay";
 import { useState } from "react"
 function App() {
   const [isGameStarted, setIsGameStarted] = useState(false);
@@ -8,7 +8,7 @@ function App() {
   }
   return (
     <>
-    {isGameStarted? <MainPage/>: <LandingPage toggle={ToggleGamePlay}/>}
+    {isGameStarted? <GamePlay/>: <LandingPage toggle={ToggleGamePlay}/>}
     </>
   )
 }
