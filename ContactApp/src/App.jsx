@@ -1,45 +1,61 @@
 import Navbar from "./Navbar";
 import { PiPlus } from "react-icons/pi";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./ContactCard";
 import CreateAndUpdateContact from "./CreateAndUpdateContact";
+import useDisclose from "./hooks/useDisclose";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.css";
 function App() {
 	const [contacts, setContacts] = useState([]);
-	const [isOpen, setIsOpen] = useState(false);
-	const onOpen = () => {
-		setIsOpen(true);
-	};
-	const onClose = () => {
-		setIsOpen(false);
-	};
+	const { isOpen, onOpen, onClose } = useDisclose();
 	useEffect(() => {
 		const getContacts = async () => {
 			try {
 				const contactsRef = collection(db, "contact");
-				const contactSnapshot = await getDocs(contactsRef);
-				const contactLists = contactSnapshot.docs.map((doc) => {
-					return {
-						id: doc.id,
-						...doc.data(),
-					};
+				onSnapshot(contactsRef, (snapshot) => {
+					const contactLists = snapshot.docs.map((doc) => {
+						return {
+							id: doc.id,
+							...doc.data(),
+						};
+					});
+					setContacts(contactLists);
 				});
-				setContacts(contactLists);
 			} catch (e) {
 				console.log(e);
 			}
 		};
 		getContacts();
 	}, []);
+	const filterContacts = (e) => {
+		const value = e.target.value;
+		const contactsRef = collection(db, "contact");
+		onSnapshot(contactsRef, (snapshot) => {
+			const contactLists = snapshot.docs.map((doc) => {
+				return {
+					id: doc.id,
+					...doc.data(),
+				};
+			});
+			const filteredContacts = contactLists.filter((contact) =>
+				contact.name.toLowerCase().includes(value.toLowerCase())
+			);
+			setContacts(filteredContacts);
+      return filteredContacts;
+		});
+	};
 	return (
 		<>
 			<div className="max-w-[400px] mx-auto font-bold">
 				<Navbar />
 				<div className="flex gap-2 m-2">
 					<input
+            onChange={filterContacts}
 						type="text"
-						className="pl-2 text-xl bg-transparent border border-white h-10 rounded-md w-[352px]"
+						className="pl-2 text-xl bg-transparent border border-white h-10 rounded-md w-[352px] text-white"
 						placeholder="Manushi"
 					/>
 
@@ -58,7 +74,8 @@ function App() {
 					})}
 				</div>
 			</div>
-      <CreateAndUpdateContact isOpen={isOpen} onClose={onClose}/>
+			<CreateAndUpdateContact isOpen={isOpen} onClose={onClose} />
+			<ToastContainer position="bottom-center" />
 		</>
 	);
 }
