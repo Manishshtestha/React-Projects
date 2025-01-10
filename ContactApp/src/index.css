@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    @apply bg-black
+}
+
+.btn{
+    @apply transition-all;
+}
+.btn:active{
+    @apply text-red-800;
+}
