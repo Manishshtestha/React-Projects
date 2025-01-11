@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+  @apply w-4/5 mx-auto bg-black text-white font-bold;
+}
