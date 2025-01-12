@@ -3,9 +3,9 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./config/firebase";
 import CardCreator from "./CardCreator";
 import useDisclose from "./hooks/useDisclose";
-import Modal from "./Modal";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import AddAndUpdateStudent from "./AddAndUpdateStudent";
+import { ToastContainer } from "react-toastify";
 function App() {
 	const [students, setStudents] = useState([]);
 	const { isOpen, onOpen, onClose } = useDisclose();
@@ -59,7 +59,7 @@ function App() {
 						Add Student
 					</button>
 				</div>
-				<div>
+				<div className="">
 					<label
 						htmlFor="filter"
 						className="absolute top-[92px] ml-2 text-black z-10 text-2xl"
@@ -74,7 +74,7 @@ function App() {
 					/>
 				</div>
 				<AddAndUpdateStudent isOpen={isOpen} onClose={onClose} />
-				<div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
+				<div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3">
 					{students.length > 0 ? (
 						students.map((student) => {
 							return (
@@ -89,6 +89,7 @@ function App() {
 					)}
 				</div>
 			</div>
+			<ToastContainer position="bottom-center"/>
 		</>
 	);
 }
