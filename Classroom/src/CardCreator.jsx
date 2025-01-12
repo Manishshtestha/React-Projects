@@ -7,11 +7,15 @@ import { toast } from "react-toastify";
 function CardCreator({ student }) {
 	const { isOpen, onOpen, onClose } = useDisclose();
 	const deleteStudent = async (id) => {
-		try {
-			await deleteDoc(doc(db, "classroom", id));
-			toast.success = "Student Deleted Successfully";
-		} catch (error) {
-			console.error(error);
+		if (window.confirm("Are you sure you want to delete this student?")) {
+			try {
+				await deleteDoc(doc(db, "classroom", id));
+			} catch (error) {
+				console.error(error);
+			}
+			toast.success("Student Deleted Successfully");
+		} else {
+			toast.info("Deletion Cancelled");
 		}
 	};
 	return (
@@ -27,7 +31,12 @@ function CardCreator({ student }) {
 					<button onClick={onOpen} className="bg-blue-500">
 						Update Details
 					</button>
-					<button className="bg-red-600" onClick={()=>deleteStudent(student.id)}>Delete</button>
+					<button
+						className="bg-red-600"
+						onClick={() => deleteStudent(student.id)}
+					>
+						Delete
+					</button>
 				</div>
 			</div>
 			<AddAndUpdateStudent
